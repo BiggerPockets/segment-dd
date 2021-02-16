@@ -5,12 +5,14 @@ import (
   "os"
   "log"
   "bytes"
+  "strings"
   "io/ioutil"
   "net/http"
   "crypto/hmac"
   "crypto/sha1"
   "encoding/hex"
   "time"
+  "regexp"
 )
 
 import (
@@ -194,7 +196,11 @@ func handleTrackEvent(webhook Webhook, source string) {
     fmt.Sprintf("type:%s", webhook.Type),
   }
 
-  statsdClient.Incr("segment.event", tags, 1)
+  eventName := formatEventName(webhook.Event)
+  metricName := fmt.Sprintf("segment.event.%s", eventName)
+
+  log.Fatalf("error: %v", metricName);
+  statsdClient.Incr(metricName, tags, 1)
 }
 
 func validEvent(eventName string) bool {
@@ -205,6 +211,13 @@ func validEvent(eventName string) bool {
   }
 
   return false
+}
+
+func formatEventName(eventName string) string {
+  lowerEventName := strings.ToLower(eventName)
+  regex := regexp.MustCompile("(?i)[^a-z0-9]")
+
+  return regex.ReplaceAllString(lowerEventName, "_");
 }
 
 func fail(errorMessage error) {
