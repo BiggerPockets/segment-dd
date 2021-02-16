@@ -41,6 +41,7 @@ var config Config
 func main() {
   loadConfig()
   initializeStatsd()
+  initializeSentry()
   router := initializeRouter()
 
   router.Run()
@@ -79,7 +80,7 @@ func readConfig() []byte {
 
 func initializeSentry() {
   error := sentry.Init(sentry.ClientOptions {
-    Dsn: "https://28f85a3618664d9da7f269b2f034d1d0@o322280.ingest.sentry.io/5639834",
+    Dsn: os.Getenv("SENTRY_DSN"),
     Environment: os.Getenv("GO_ENV"),
   })
 
