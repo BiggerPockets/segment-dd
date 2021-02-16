@@ -209,5 +209,5 @@ func validEvent(eventName string) bool {
 
 func fail(errorMessage error) {
   log.Fatalf("error: %v", errorMessage);
-  sentry.CaptureMessage(errorMessage);
+  sentry.CaptureException(errorMessage);
 }
