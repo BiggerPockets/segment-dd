@@ -10,6 +10,7 @@ import (
   "crypto/hmac"
   "crypto/sha1"
   "encoding/hex"
+  "time"
 )
 
 import (
