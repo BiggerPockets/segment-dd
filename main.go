@@ -199,7 +199,6 @@ func handleTrackEvent(webhook Webhook, source string) {
   eventName := formatEventName(webhook.Event)
   metricName := fmt.Sprintf("segment.event.%s", eventName)
 
-  log.Fatalf("error: %v", metricName);
   statsdClient.Incr(metricName, tags, 1)
 }
 
