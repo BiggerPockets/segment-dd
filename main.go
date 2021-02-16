@@ -51,7 +51,7 @@ func initializeStatsd() {
   statsdClient, statsdErr = statsd.New("127.0.0.1:8125")
 
   if statsdErr != nil {
-    log.Fatalf("error: %v", statsdErr)
+    fail(statsdErr)
     os.Exit(1)
   }
 }
@@ -62,7 +62,7 @@ func loadConfig() {
   error := yaml.Unmarshal(readConfig(), &config)
 
   if error != nil {
-    log.Fatalf("error: %v", error)
+    fail(error)
     os.Exit(1)
   }
 }
@@ -71,7 +71,7 @@ func readConfig() []byte {
   data, error := ioutil.ReadFile("config.yml")
 
   if error != nil {
-    log.Fatalf("error: %v", error)
+    fail(error)
     os.Exit(1)
   }
 
@@ -85,7 +85,7 @@ func initializeSentry() {
   })
 
   if error != nil {
-    log.Fatalf("error: %s", error)
+    fail(error)
   }
 
   defer sentry.Flush(2 * time.Second)
@@ -205,4 +205,9 @@ func validEvent(eventName string) bool {
   }
 
   return false
+}
+
+func fail(errorMessage string) {
+  log.Fatalf("error: %s", errorMessage);
+  sentry.CaptureMessage(errorMessage);
 }
