@@ -45,10 +45,10 @@ func main() {
 }
 
 func initializeStatsd() {
-  statsdClient, error = statsd.New("127.0.0.1:8125")
+  statsdClient, statsdErr = statsd.New("127.0.0.1:8125")
 
-  if error != nil {
-    log.Fatalf("error: %v", error)
+  if statsdErr != nil {
+    log.Fatalf("error: %v", statsdErr)
     os.Exit(1)
   }
 }
