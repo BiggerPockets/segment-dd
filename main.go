@@ -18,6 +18,7 @@ import (
   "github.com/gin-gonic/gin"
   "github.com/gin-gonic/gin/binding"
   "github.com/DataDog/datadog-go/statsd"
+  "github.com/getsentry/sentry-go"
 )
 
 type Webhook struct {
@@ -73,6 +74,19 @@ func readConfig() []byte {
   }
 
   return data;
+}
+
+func initializeSentry() {
+  error := sentry.Init(sentry.ClientOptions {
+    Dsn: "https://28f85a3618664d9da7f269b2f034d1d0@o322280.ingest.sentry.io/5639834",
+    Environment: os.Getenv("GO_ENV"),
+  })
+
+  if error != nil {
+    log.Fatalf("error: %s", error)
+  }
+
+  defer sentry.Flush(2 * time.Second)
 }
 
 func initializeRouter() *gin.Engine {
