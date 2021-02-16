@@ -22,6 +22,7 @@ import (
   "github.com/gin-gonic/gin/binding"
   "github.com/DataDog/datadog-go/statsd"
   "github.com/getsentry/sentry-go"
+  sentrygin "github.com/getsentry/sentry-go/gin"
 )
 
 type Webhook struct {
@@ -89,14 +90,17 @@ func initializeSentry() {
   if error != nil {
     fail(error)
   }
-
-  defer sentry.Flush(2 * time.Second)
 }
 
 func initializeRouter() *gin.Engine {
   router := gin.New();
   router.Use(gin.Logger());
   router.Use(gin.Recovery());
+
+  router.Use(sentrygin.New(sentrygin.Options {
+    Repanic: true,
+  }));
+
   router.POST("/api/:source", processEvent)
 
   return router
