@@ -25,7 +25,7 @@ import (
 )
 
 type Webhook struct {
-  Type string `json:"type" binding:"required,oneof=track,identify"`
+  Type string `json:"type" binding:"required"`
   Event string `json:"event"`
   UserID string `json:"userId"`
   Channel string `json:"channel"`
