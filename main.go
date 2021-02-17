@@ -193,8 +193,6 @@ func handleTrackEvent(webhook Webhook, source string) {
   tags := []string {
     fmt.Sprintf("environment:%s", os.Getenv("GO_ENV")),
     fmt.Sprintf("source:%s", source),
-    fmt.Sprintf("event:%s", webhook.Event),
-    fmt.Sprintf("userId:%s", webhook.UserID),
     fmt.Sprintf("channel:%s", webhook.Channel),
     fmt.Sprintf("type:%s", webhook.Type),
   }
