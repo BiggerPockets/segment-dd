@@ -1,13 +1,14 @@
 events:
-  - Logged In
-  - Viewed Dashboard
   - Activated Email
-  - First Time Pro
+  - Clicked Matched Vendor Contact
+  - Clicked Matched Vendor Contact all
+  - Clicked Vendor Matching Resource
+  - Completed Vendor Matching Step
   - First Time Premium
+  - First Time Pro
   - Generated Calculator Report
   - Hard Money Lead Submitted
+  - Logged In
   - Real Estate Agent Lead Submitted
-  - Clicked Matched Vendor Contact all
-  - Clicked Matched Vendor Contact
-  - Completed Vendor Matching Step
-  - Clicked Vendor Matching Resource
+  - Registered for Webinar
+  - Viewed Dashboard
